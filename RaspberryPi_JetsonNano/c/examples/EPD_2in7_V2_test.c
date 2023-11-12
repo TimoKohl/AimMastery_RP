@@ -39,7 +39,7 @@ int EPD_2in7_V2_test(void)
         return -1;
     }
 
-    printf("e-Paper Init and Clear...\r\n");
+    printf("e-Paper Init and Clear...\nAimMastery...\r\n");
 	EPD_2IN7_V2_Init();
 
 	struct timespec start={0,0}, finish={0,0}; 
@@ -105,8 +105,8 @@ int EPD_2in7_V2_test(void)
     Paint_DrawNum(10, 33, 123456789, &Font12, BLACK, WHITE);
     Paint_DrawNum(10, 50, 987654321, &Font16, WHITE, BLACK);
 
-    Paint_DrawString_CN(130, 0,"ÄãºÃabc", &Font12CN, BLACK, WHITE);
-    Paint_DrawString_CN(130, 20, "Î¢Ñ©µç×Ó", &Font24CN, WHITE, BLACK);
+    Paint_DrawString_CN(130, 0,"ï¿½ï¿½ï¿½abc", &Font12CN, BLACK, WHITE);
+    Paint_DrawString_CN(130, 20, "Î¢Ñ©ï¿½ï¿½ï¿½ï¿½", &Font24CN, WHITE, BLACK);
 
     EPD_2IN7_V2_Display_Base(BlackImage);
     DEV_Delay_ms(3000);
@@ -164,8 +164,8 @@ int EPD_2in7_V2_test(void)
     Paint_DrawNum(10, 33, 123456789, &Font12, BLACK, WHITE);
     Paint_DrawNum(10, 50, 987654321, &Font16, WHITE, BLACK);
 
-    Paint_DrawString_CN(130, 0,"ÄãºÃabc", &Font12CN, BLACK, WHITE);
-    Paint_DrawString_CN(130, 20, "Î¢Ñ©µç×Ó", &Font24CN, WHITE, BLACK);
+    Paint_DrawString_CN(130, 0,"ï¿½ï¿½ï¿½abc", &Font12CN, BLACK, WHITE);
+    Paint_DrawString_CN(130, 20, "Î¢Ñ©ï¿½ï¿½ï¿½ï¿½", &Font24CN, WHITE, BLACK);
 
     EPD_2IN7_V2_Display_Fast(BlackImage);
     DEV_Delay_ms(3000);
@@ -251,11 +251,11 @@ int EPD_2in7_V2_test(void)
     Paint_DrawString_EN(10, 20, "hello world", &Font12, GRAY3, GRAY1);
     Paint_DrawNum(10, 33, 123456789, &Font12, GRAY4, GRAY2);
     Paint_DrawNum(10, 50, 987654321, &Font16, GRAY1, GRAY4);
-    Paint_DrawString_CN(150, 0,"ÄãºÃabc", &Font12CN, GRAY4, GRAY1);
-    Paint_DrawString_CN(150, 20,"ÄãºÃabc", &Font12CN, GRAY3, GRAY2);
-    Paint_DrawString_CN(150, 40,"ÄãºÃabc", &Font12CN, GRAY2, GRAY3);
-    Paint_DrawString_CN(150, 60,"ÄãºÃabc", &Font12CN, GRAY1, GRAY4);
-    Paint_DrawString_CN(10, 130, "Î¢Ñ©µç×Ó", &Font24CN, GRAY1, GRAY4);
+    Paint_DrawString_CN(150, 0,"ï¿½ï¿½ï¿½abc", &Font12CN, GRAY4, GRAY1);
+    Paint_DrawString_CN(150, 20,"ï¿½ï¿½ï¿½abc", &Font12CN, GRAY3, GRAY2);
+    Paint_DrawString_CN(150, 40,"ï¿½ï¿½ï¿½abc", &Font12CN, GRAY2, GRAY3);
+    Paint_DrawString_CN(150, 60,"ï¿½ï¿½ï¿½abc", &Font12CN, GRAY1, GRAY4);
+    Paint_DrawString_CN(10, 130, "Î¢Ñ©ï¿½ï¿½ï¿½ï¿½", &Font24CN, GRAY1, GRAY4);
     EPD_2IN7_V2_4GrayDisplay(BlackImage);
     DEV_Delay_ms(3000);
 

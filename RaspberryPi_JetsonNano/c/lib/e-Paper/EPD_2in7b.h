@@ -92,8 +92,8 @@
 #include "DEV_Config.h"
 
 // Display resolution
-#define EPD_2IN7B_WIDTH       176
-#define EPD_2IN7B_HEIGHT      264
+#define EPD_2IN7B_WIDTH       176//AM Mod was 176
+#define EPD_2IN7B_HEIGHT      264//AM Mod was 264
 
 void EPD_2IN7B_Init(void);
 void EPD_2IN7B_Clear(void);

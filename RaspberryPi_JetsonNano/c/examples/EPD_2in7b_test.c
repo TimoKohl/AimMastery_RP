@@ -41,8 +41,7 @@ int EPD_2in7b_test(void)
     EPD_2IN7B_Init();
     EPD_2IN7B_Clear();
     DEV_Delay_ms(500);
-
-    //Create a new image cache named IMAGE_BW and fill it with white
+        //Create a new image cache named IMAGE_BW and fill it with white
     UBYTE *BlackImage, *RedImage;
     UWORD Imagesize = ((EPD_2IN7B_WIDTH % 8 == 0)? (EPD_2IN7B_WIDTH / 8 ): (EPD_2IN7B_WIDTH / 8 + 1)) * EPD_2IN7B_HEIGHT;
     if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) {
@@ -55,82 +54,116 @@ int EPD_2in7b_test(void)
     }
     printf("NewImage:BlackImage and RedImage\r\n");
     Paint_NewImage(BlackImage, EPD_2IN7B_WIDTH, EPD_2IN7B_HEIGHT, 270, WHITE);
-    Paint_NewImage(RedImage, EPD_2IN7B_WIDTH, EPD_2IN7B_HEIGHT, 270, WHITE);
+    Paint_NewImage(RedImage, EPD_2IN7B_WIDTH, EPD_2IN7B_HEIGHT, 270, BLACK);
 
-    //Select Image
+
+    Paint_SelectImage(BlackImage);
+    Paint_Clear(BLACK);
+    Paint_DrawLine(187,  0,223,  0, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(223,  0,223, 35, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(223, 35,246, 35, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(246, 35,258, 47, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(258, 47,258,141, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(258,141,240,175, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(240,175,170,175, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(170,175,152,141, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(152,141,152, 47, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(152, 47,164, 35, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(164, 35,187, 35, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(187, 35,187,  0, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(187, 35,170, 47, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(170, 47,170,113, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(170,113,182,141, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(182,141,228,141, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(228,141,240,113, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(240,113,240, 47, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+    Paint_DrawLine(240, 47,223, 35, WHITE, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+
+
+    Paint_SelectImage(RedImage);
+    // Paint_Clear(WHITE);
+    Paint_DrawRectangle(5, 47, 36, 66, BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY);
+
+    EPD_2IN7B_Display(BlackImage, RedImage);
+    DEV_Delay_ms(4000);
+
+ /*   //Select Image
     Paint_SelectImage(BlackImage);
     Paint_Clear(WHITE);
     Paint_SelectImage(RedImage);
     Paint_Clear(WHITE);
     
-#if 1   // show bmp
-    printf("show window BMP-----------------\r\n");
-    Paint_SelectImage(BlackImage);
-    GUI_ReadBmp("./pic/100x100.bmp", 50, 10);
-    Paint_SelectImage(RedImage);
-    Paint_Clear(WHITE);    
-    EPD_2IN7B_Display(BlackImage, RedImage);
-    DEV_Delay_ms(4000);
+    #if 1   // show bmp
+        printf("show window BMP-----------------\r\n");
+        Paint_SelectImage(BlackImage);
+        GUI_ReadBmp("./pic/100x100.bmp", 50, 10);
+        Paint_SelectImage(RedImage);
+        Paint_Clear(WHITE);    
+        EPD_2IN7B_Display(BlackImage, RedImage);
+        DEV_Delay_ms(4000);
 
-    printf("show bmp------------------------\r\n");
-    Paint_SelectImage(BlackImage);
-    GUI_ReadBmp("./pic/2in7b-b.bmp", 0, 0);
-    Paint_SelectImage(RedImage);
-    GUI_ReadBmp("./pic/2in7b-r.bmp", 0, 0);
-    EPD_2IN7B_Display(BlackImage, RedImage);
-    DEV_Delay_ms(4000);
-#endif
+        printf("show bmp------------------------\r\n");
+        Paint_SelectImage(BlackImage);
+        GUI_ReadBmp("./pic/2in7b-b.bmp", 0, 0);
+        Paint_SelectImage(RedImage);
+        GUI_ReadBmp("./pic/2in7b-r.bmp", 0, 0);
+        EPD_2IN7B_Display(BlackImage, RedImage);
+        DEV_Delay_ms(4000);
+    #endif
 
-#if 1   // show image for array   
-    printf("show image for array\r\n");
-    Paint_SelectImage(BlackImage);
-    Paint_DrawBitMap(gImage_2in7b_Black);
-    Paint_SelectImage(RedImage);
-    Paint_DrawBitMap(gImage_2in7b_Red);
-    EPD_2IN7B_Display(BlackImage, RedImage);
-    DEV_Delay_ms(4000);
-#endif
+    #if 1   // show image for array   
+        printf("show image for array\r\n");
+        Paint_SelectImage(BlackImage);
+        Paint_DrawBitMap(gImage_2in7b_Black);
+        Paint_SelectImage(RedImage);
+        Paint_DrawBitMap(gImage_2in7b_Red);
+        EPD_2IN7B_Display(BlackImage, RedImage);
+        DEV_Delay_ms(4000);
+    #endif
 
-#if 1   // Drawing on the image
-    /*Horizontal screen*/
-    //1.Draw black image
-    Paint_SelectImage(BlackImage);
-    Paint_Clear(WHITE);
-    Paint_DrawPoint(10, 80, BLACK, DOT_PIXEL_1X1, DOT_STYLE_DFT);
-    Paint_DrawPoint(10, 90, BLACK, DOT_PIXEL_2X2, DOT_STYLE_DFT);
-    Paint_DrawPoint(10, 100, BLACK, DOT_PIXEL_3X3, DOT_STYLE_DFT);
-    Paint_DrawPoint(10, 110, BLACK, DOT_PIXEL_3X3, DOT_STYLE_DFT);
-    Paint_DrawLine(20, 70, 70, 120, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
-    Paint_DrawLine(70, 70, 20, 120, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
-    Paint_DrawRectangle(20, 70, 70, 120, BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY);
-    Paint_DrawRectangle(80, 70, 130, 120, BLACK, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawString_EN(10, 0, "waveshare", &Font16, BLACK, WHITE);
-    Paint_DrawString_CN(130, 20, "Î¢Ñ©µç×Ó", &Font24CN, WHITE, BLACK);
-    Paint_DrawNum(10, 50, 987654321, &Font16, WHITE, BLACK);
+    #if 1   // Drawing on the image
+        //Horizontal screen
+        //1.Draw black image
+        Paint_SelectImage(BlackImage);
+        Paint_Clear(WHITE);
+        Paint_DrawPoint(10, 80, BLACK, DOT_PIXEL_1X1, DOT_STYLE_DFT);
+        Paint_DrawPoint(10, 90, BLACK, DOT_PIXEL_2X2, DOT_STYLE_DFT);
+        Paint_DrawPoint(10, 100, BLACK, DOT_PIXEL_3X3, DOT_STYLE_DFT);
+        Paint_DrawPoint(10, 110, BLACK, DOT_PIXEL_3X3, DOT_STYLE_DFT);
+        Paint_DrawLine(20, 70, 70, 120, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+        Paint_DrawLine(70, 70, 20, 120, BLACK, DOT_PIXEL_1X1, LINE_STYLE_SOLID);
+        Paint_DrawRectangle(20, 70, 70, 120, BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY);
+        Paint_DrawRectangle(80, 70, 130, 120, BLACK, DOT_PIXEL_1X1, DRAW_FILL_FULL);
+        Paint_DrawString_EN(10, 0, "waveshare", &Font16, BLACK, WHITE);
+        Paint_DrawString_CN(130, 20, "Î¢Ñ©ï¿½ï¿½ï¿½ï¿½", &Font24CN, WHITE, BLACK);
+        Paint_DrawNum(10, 50, 987654321, &Font16, WHITE, BLACK);
 
-    //2.Draw red image
-    Paint_SelectImage(RedImage);
-    Paint_Clear(WHITE);
-    Paint_DrawCircle(160, 95, 20, BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY);
-    Paint_DrawCircle(210, 95, 20, BLACK, DOT_PIXEL_1X1, DRAW_FILL_FULL);
-    Paint_DrawLine(85, 95, 125, 95, BLACK, DOT_PIXEL_1X1, LINE_STYLE_DOTTED);
-    Paint_DrawLine(105, 75, 105, 115, BLACK, DOT_PIXEL_1X1, LINE_STYLE_DOTTED);
-    Paint_DrawString_CN(130, 0,"ÄãºÃabc", &Font12CN, BLACK, WHITE);
-    Paint_DrawString_EN(10, 20, "hello world", &Font12, WHITE, BLACK);
-    Paint_DrawNum(10, 33, 123456789, &Font12, BLACK, WHITE);
+        //2.Draw red image
+        Paint_SelectImage(RedImage);
+        Paint_Clear(WHITE);
+        Paint_DrawCircle(160, 95, 20, BLACK, DOT_PIXEL_1X1, DRAW_FILL_EMPTY);
+        Paint_DrawCircle(210, 95, 20, BLACK, DOT_PIXEL_1X1, DRAW_FILL_FULL);
+        Paint_DrawLine(85, 95, 125, 95, BLACK, DOT_PIXEL_1X1, LINE_STYLE_DOTTED);
+        Paint_DrawLine(105, 75, 105, 115, BLACK, DOT_PIXEL_1X1, LINE_STYLE_DOTTED);
+        Paint_DrawString_CN(130, 0,"ï¿½ï¿½ï¿½abc", &Font12CN, BLACK, WHITE);
+        Paint_DrawString_EN(10, 20, "hello world", &Font12, WHITE, BLACK);
+        Paint_DrawNum(10, 33, 123456789, &Font12, BLACK, WHITE);
 
-    printf("EPD_Display\r\n");
-    EPD_2IN7B_Display(BlackImage, RedImage);
-    DEV_Delay_ms(4000);
-#endif
+        printf("EPD_Display\r\n");
+        EPD_2IN7B_Display(BlackImage, RedImage);
+        DEV_Delay_ms(4000);
+    #endif
+
+
 
     printf("Clear...\r\n");
     EPD_2IN7B_Clear();
-
+*/
     printf("Goto Sleep...\r\n");
     EPD_2IN7B_Sleep();
     free(BlackImage);
     BlackImage = NULL;
+
     DEV_Delay_ms(2000);//important, at least 2s
     // close 5V
     printf("close 5V, Module enters 0 power consumption ...\r\n");
