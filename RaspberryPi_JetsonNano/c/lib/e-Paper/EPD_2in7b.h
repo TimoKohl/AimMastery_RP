@@ -94,10 +94,31 @@
 // Display resolution
 #define EPD_2IN7B_WIDTH       176//AM Mod was 176
 #define EPD_2IN7B_HEIGHT      264//AM Mod was 264
+#define MAX_SHOTS 32
+
+// Define the structure to represent a shot
+struct Shot {
+    int time;
+    int split;
+    const char *grade;
+};
+// Define a struct to hold the list of shots
+struct ShotList {
+    struct Shot shots[MAX_SHOTS];
+    int count;
+};
+
 
 void EPD_2IN7B_Init(void);
 void EPD_2IN7B_Clear(void);
 void EPD_2IN7B_Display(UBYTE *Imageblack, UBYTE *Imagered);
 void EPD_2IN7B_Sleep(void);
+//AM Added
+void print_Line_Red(int row, int cent_sec, int split_cent_sec, const char *zone);
+void print_Line_Black(int row, int cent_sec, int split_cent_sec, const char *zone);
+void addShot(struct ShotList *shotList, int time, char *grade);
+void emptyShotList(struct ShotList *shotList);
+void print_Text_Field(struct ShotList *myShotList, int black);
+
 
 #endif
