@@ -99,7 +99,7 @@ static const unsigned char EPD_2IN7B_lut_vcom_dc[] = {
     0x00, 0x03, 0x0E, 0x00, 0x00, 0x0A,
     0x00, 0x23, 0x00, 0x00, 0x00, 0x01
 };
-
+ 
 //R21H
 static const unsigned char EPD_2IN7B_lut_ww[] = {
     0x90, 0x1A, 0x1A, 0x00, 0x00, 0x01,
@@ -332,6 +332,39 @@ void EPD_2IN7B_Display(UBYTE *Imageblack, UBYTE *Imagered)
     
     EPD_2IN7B_SendCommand(0x12);
     EPD_2IN7B_ReadBusy();
+}
+
+/**
+ *  @brief: transmit partial data to the SRAM.  The final parameter chooses between dtm=1 and dtm=2
+ */
+void SetPartialWindow(const unsigned char* buffer_black, int x, int y, int w, int l, int dtm)
+ {
+    SendCommand(0x14);
+    SendCommand(0x16);
+    SendData(x >> 8);
+    SendData(x & 0xf8);     // x should be the multiple of 8, the last 3 bit will always be ignored
+    SendData(((x & 0xf8) + w  - 1) >> 8);
+    SendData(((x & 0xf8) + w  - 1) | 0x07);
+    SendData(y >> 8);        
+    SendData(y & 0xff);
+    SendData((y + l - 1) >> 8);        
+    SendData((y + l - 1) & 0xff);
+    SendData(0x01);         // Gates scan both inside and outside of the partial window. (default) 
+  //  DelayMs(2);
+    // UBYTE DATA_START_TRANSMISSION_1 = 0x14;
+    // UBYTE DATA_START_TRANSMISSION_2 = PARTIAL_DATA_START_TRANSMISSION_2;
+    SendCommand((dtm == 1) ? 0x10 : 0x13);
+    if (buffer_black != NULL) {
+        for(int i = 0; i < w  / 8 * l; i++) {
+            SendData(buffer_black[i]);  
+        }  
+    } else {
+        for(int i = 0; i < w  / 8 * l; i++) {
+            SendData(0x00);  
+        }  
+    }
+ //   DelayMs(2);
+    SendCommand(0x15);  
 }
 
 /******************************************************************************

@@ -15,6 +15,11 @@ int main(void)
 {
     // Exception handling:ctrl + c
     signal(SIGINT, Handler);
+    // printf("Hello \r\n");
+    // EPD_2in7b_V2_test();
+    // printf("Bye \r\n");
+    // return 0;
+
     
 #ifdef epd1in64g
     EPD_1in64g_test();
